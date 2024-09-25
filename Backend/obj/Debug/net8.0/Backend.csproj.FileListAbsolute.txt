@@ -30,3 +30,4 @@ C:\Users\everc\OneDrive\Documentos\progra2\Backend\Backend\obj\Debug\net8.0\refi
 C:\Users\everc\OneDrive\Documentos\progra2\Backend\Backend\obj\Debug\net8.0\Backend.pdb
 C:\Users\everc\OneDrive\Documentos\progra2\Backend\Backend\obj\Debug\net8.0\Backend.genruntimeconfig.cache
 C:\Users\everc\OneDrive\Documentos\progra2\Backend\Backend\obj\Debug\net8.0\ref\Backend.dll
+C:\Users\everc\OneDrive\Documentos\progra2\Backend\Backend\obj\Debug\net8.0\Backend.sourcelink.json

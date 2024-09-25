@@ -1,15 +1,26 @@
 [
   {
-    "ContainingType": "Backend.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "Backend.Controllers.OperationsController",
+    "Method": "Add",
+    "RelativePath": "api/Operations",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "a",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "b",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Backend.WeatherForecast, Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Decimal",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -17,7 +28,6 @@
         ],
         "StatusCode": 200
       }
-    ],
-    "EndpointName": "GetWeatherForecast"
+    ]
   }
 ]
