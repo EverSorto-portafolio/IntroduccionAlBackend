@@ -14,8 +14,9 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public decimal Add(Numbers c)
+        public decimal Add(Numbers c, [FromHeader(Name = "x-MyHeadersProgra2")] string Host)
         {
+            Console.WriteLine(Host);
             return c.A - c.B;
         }
         [HttpPut]

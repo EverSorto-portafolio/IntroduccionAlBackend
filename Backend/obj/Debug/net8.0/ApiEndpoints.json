@@ -42,6 +42,11 @@
         "Name": "c",
         "Type": "Backend.Controllers.Numbers",
         "IsRequired": true
+      },
+      {
+        "Name": "x-MyHeadersProgra2",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
