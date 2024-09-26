@@ -39,14 +39,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "a",
-        "Type": "System.Decimal",
-        "IsRequired": false
-      },
-      {
-        "Name": "b",
-        "Type": "System.Decimal",
-        "IsRequired": false
+        "Name": "c",
+        "Type": "Backend.Controllers.Numbers",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
