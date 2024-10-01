@@ -125,6 +125,22 @@
   },
   {
     "ContainingType": "Backend.Controllers.PersonaController",
+    "Method": "Add",
+    "RelativePath": "api/Persona",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "persona",
+        "Type": "PersonaDatos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend.Controllers.PersonaController",
     "Method": "Get",
     "RelativePath": "api/Persona/{id}",
     "HttpMethod": "GET",

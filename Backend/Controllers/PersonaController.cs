@@ -22,5 +22,17 @@ namespace Backend.Controllers
         [HttpGet("search/{search}")]
         public List<PersonaDatos> Get(string search) =>
             Repository.persona.Where( p => p.name.ToUpper().Contains(search.ToUpper())).ToList();
+
+        [HttpPost]
+        public IActionResult Add(PersonaDatos persona) {
+            if (string.IsNullOrEmpty(persona.name)) { 
+            return BadRequest();
+            }
+            Repository.persona.Add(persona);
+            return NoContent();
+        }
+
     }
+
+   
 }
