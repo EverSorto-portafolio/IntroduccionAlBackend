@@ -12,7 +12,7 @@ namespace Backend.Controllers
 
         private IPersonaServices _personaServices;
 
-        public PersonaController(IPersonaServices personaService) {
+        public PersonaController([FromKeyedServices("personaservices")]IPersonaServices personaService) {
             _personaServices = personaService;
         }
 
