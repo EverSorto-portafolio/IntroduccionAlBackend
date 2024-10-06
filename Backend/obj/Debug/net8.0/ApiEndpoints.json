@@ -230,5 +230,35 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Backend.Controllers.SomeController",
+    "Method": "getSync",
+    "RelativePath": "api/Some/async",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend.Controllers.SomeController",
+    "Method": "GetAsync",
+    "RelativePath": "api/Some/async1",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend.Controllers.SomeController",
+    "Method": "GetAsync2",
+    "RelativePath": "api/Some/async2",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
