@@ -7,13 +7,13 @@ namespace Backend.services
     {
         private HttpClient _httpClient;
 
-        public PostService() { 
-            _httpClient = new HttpClient();
+        public PostService(HttpClient httpClient) { 
+            _httpClient =  httpClient;
         }
 
         public async Task<IEnumerable<PostDto>> Get() {
-            string url = "https://jsonplaceholder.typicode.com/posts";
-            var result = await _httpClient.GetAsync(url);
+            
+            var result = await _httpClient.GetAsync(_httpClient.BaseAddress);
 
             var body = await result.Content.ReadAsStringAsync();
 
