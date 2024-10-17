@@ -23,9 +23,11 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Beer", b =>
                 {
-                    b.Property<string>("BeerId")
+                    b.Property<int>("BeerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BeerId"));
 
                     b.Property<decimal>("Al")
                         .HasColumnType("decimal(18,2)");

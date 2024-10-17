@@ -7,7 +7,7 @@ namespace Backend.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string BeerId { get; set; }
+        public int BeerId { get; set; }
         public string BeerName { get; set; }
 
         public int BrandId { get; set; }

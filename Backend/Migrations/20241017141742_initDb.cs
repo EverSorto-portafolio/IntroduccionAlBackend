@@ -5,7 +5,7 @@
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,9 +27,11 @@ namespace Backend.Migrations
                 name: "Beers",
                 columns: table => new
                 {
-                    BeerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BeerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BeerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BrandId = table.Column<int>(type: "int", nullable: false)
+                    BrandId = table.Column<int>(type: "int", nullable: false),
+                    Al = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20241013060620_Al")]
-    partial class Al
+    [Migration("20241017141742_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,9 +26,11 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Beer", b =>
                 {
-                    b.Property<string>("BeerId")
+                    b.Property<int>("BeerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BeerId"));
 
                     b.Property<decimal>("Al")
                         .HasColumnType("decimal(18,2)");
