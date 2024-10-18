@@ -1,6 +1,7 @@
 ﻿using Backend.DTOs;
 using Backend.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace Backend.Controllers
         public async Task<ActionResult<BeerDto>> GetById(int id) {
             var beer = await _storeContext.Beers.FindAsync(id);
             if (beer == null) {
-                return NotFound();            
+                return NotFound();
             }
 
             var beerDto = new BeerDto {
@@ -51,7 +52,7 @@ namespace Backend.Controllers
                 BrandId = beerInsertDto.BrandID,
                 Al = beerInsertDto.Al
             };
-            await _storeContext.Beers.AddAsync(beer);   
+            await _storeContext.Beers.AddAsync(beer);
             await _storeContext.SaveChangesAsync();
 
             var beerDto = new BeerDto
@@ -61,7 +62,46 @@ namespace Backend.Controllers
                 BrandID = beerInsertDto.BrandID,
                 Al = beerInsertDto.Al
             };
-            return CreatedAtAction( nameof(GetById), new { id = beer.BeerId}, beerDto );
+            return CreatedAtAction(nameof(GetById), new { id = beer.BeerId }, beerDto);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BeerDto>> update(
+            int id, BeerUpdateDto beerUpdateDto) 
+        {
+            var beer = await _storeContext.Beers.FindAsync(id);
+            if (beer == null) {
+                return NotFound();
+            }
+
+            beer.BeerName = beerUpdateDto.Name;
+            beer.Al = beerUpdateDto.Al;
+            beer.BrandId = beerUpdateDto.BrandID;
+
+            await _storeContext.SaveChangesAsync();
+            var beerDto = new BeerDto
+            {
+                Id = beer.BeerId,
+                Name = beer.BeerName,
+                BrandID = beer.BrandId,
+                Al = beer.Al
+            };
+            return Ok(beerDto);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id) 
+        {
+            var beer = await _storeContext.Beers.FindAsync(id);
+            if (beer == null)
+            {
+                return NotFound();
+            }
+            _storeContext.Beers.Remove(beer);
+            await _storeContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
     }
 }
