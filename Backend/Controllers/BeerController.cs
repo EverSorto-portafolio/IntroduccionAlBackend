@@ -41,7 +41,27 @@ namespace Backend.Controllers
             };
 
             return Ok(beerDto);
+        }
 
+        [HttpPost]
+        public async Task<ActionResult<BeerDto>> Add(BeerInsertDto beerInsertDto) {
+            var beer = new Beer()
+            {
+                BeerName = beerInsertDto.Name,
+                BrandId = beerInsertDto.BrandID,
+                Al = beerInsertDto.Al
+            };
+            await _storeContext.Beers.AddAsync(beer);   
+            await _storeContext.SaveChangesAsync();
+
+            var beerDto = new BeerDto
+            {
+                Id = beer.BeerId,
+                Name = beerInsertDto.Name,
+                BrandID = beerInsertDto.BrandID,
+                Al = beerInsertDto.Al
+            };
+            return CreatedAtAction( nameof(GetById), new { id = beer.BeerId}, beerDto );
         }
     }
 }

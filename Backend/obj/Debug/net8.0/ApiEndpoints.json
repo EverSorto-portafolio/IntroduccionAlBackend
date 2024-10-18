@@ -21,6 +21,32 @@
   },
   {
     "ContainingType": "Backend.Controllers.BeerController",
+    "Method": "Add",
+    "RelativePath": "api/Beer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "beerInsertDto",
+        "Type": "Backend.DTOs.BeerInsertDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Backend.DTOs.BeerDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Backend.Controllers.BeerController",
     "Method": "GetById",
     "RelativePath": "api/Beer/{id}",
     "HttpMethod": "GET",
