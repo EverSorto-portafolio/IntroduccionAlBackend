@@ -1,4 +1,5 @@
 ﻿using Backend.DTOs;
+using Backend.Models;
 using FluentValidation;
 
 namespace Backend.Validators
@@ -6,9 +7,12 @@ namespace Backend.Validators
     public class BeerInsertValitator : AbstractValidator<BeerInsertDto>
     {
         public BeerInsertValitator() {
-            RuleFor(x => x.Name).NotEmpty();
-        }
-        
+            RuleFor(x => x.Name).NotEmpty().WithMessage("El nombre el obligatorio");
+            RuleFor(x => x.Name).Length(2, 20).WithMessage("Sebe ser entre 2 a 20 caracteres");
+            RuleFor(x => x.BrandID).NotNull().WithMessage("Debe ingresar una marca de serveza valida");
+            RuleFor(x => x.BrandID).GreaterThan(0).WithMessage("La marca debe estar registrada");
+            RuleFor(x => x.Al).GreaterThan(0).WithMessage(x => "El nivel de alcohol  {PropertyName} debe ser legal");
 
+        }
     }
 }
