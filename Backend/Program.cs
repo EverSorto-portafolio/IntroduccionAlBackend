@@ -1,5 +1,8 @@
+using Backend.DTOs;
 using Backend.Models;
 using Backend.services;
+using Backend.Validators;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -18,8 +21,12 @@ builder.Services.AddKeyedTransient<IRandomServices, RandomService>("randomTrasie
 
 builder.Services.AddScoped<IPostService, PostService>();
 
+// Entity F.
 builder.Services.AddHttpClient<IPostService, PostService>(
     c => c.BaseAddress = new Uri(builder.Configuration["BaseUrlPosts"]));
+
+//Validadores 
+builder.Services.AddScoped<IValidator<BeerInsertDto>, BeerInsertValitator>();
 
 builder.Services.AddDbContext<StoreContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnections"));
