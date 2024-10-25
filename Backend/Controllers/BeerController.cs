@@ -120,7 +120,7 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id) 
+        public async Task<ActionResult<BeerDto>> Delete(int id) 
         {
             var beer = await _storeContext.Beers.FindAsync(id);
             if (beer == null)
@@ -129,8 +129,15 @@ namespace Backend.Controllers
             }
             _storeContext.Beers.Remove(beer);
             await _storeContext.SaveChangesAsync();
+            var beerDto = new BeerDto
+            {
+                Id = beer.BeerId,
+                Name = beer.BeerName,
+                BrandID = beer.BrandId,
+                Al = beer.Al
+            };
 
-            return Ok();
+            return Ok(beerDto);
         }
 
     }
