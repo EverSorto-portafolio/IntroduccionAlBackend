@@ -27,6 +27,7 @@ builder.Services.AddHttpClient<IPostService, PostService>(
 
 //Validadores 
 builder.Services.AddScoped<IValidator<BeerInsertDto>, BeerInsertValitator>();
+builder.Services.AddScoped<IValidator<BeerUpdateDto>, BeerUpdateValidator>();
 
 builder.Services.AddDbContext<StoreContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnections"));

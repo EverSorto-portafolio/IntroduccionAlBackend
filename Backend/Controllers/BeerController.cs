@@ -13,13 +13,17 @@ namespace Backend.Controllers
     public class BeerController : ControllerBase
     {
         private StoreContext _storeContext;
-
         private IValidator<BeerInsertDto> _beerInsertValidator;
+        private IValidator<BeerUpdateDto> _beerUpdateValidator;
 
-
-        public BeerController(StoreContext storeContext, IValidator<BeerInsertDto> beerInsertValidators) {
+        public BeerController(
+            StoreContext storeContext, 
+            IValidator<BeerInsertDto> beerInsertValidators,
+            IValidator<BeerUpdateDto> beerUpdateValidator)
+        {
             _storeContext = storeContext;
             _beerInsertValidator = beerInsertValidators;
+            _beerUpdateValidator = beerUpdateValidator;
         }
 
         [HttpGet]
@@ -84,6 +88,17 @@ namespace Backend.Controllers
         public async Task<ActionResult<BeerDto>> update(
             int id, BeerUpdateDto beerUpdateDto) 
         {
+
+            var validationResult = await _beerUpdateValidator.ValidateAsync(beerUpdateDto);
+
+            if (!validationResult.IsValid) {
+
+                return BadRequest(validationResult.Errors);
+            }
+
+
+
+
             var beer = await _storeContext.Beers.FindAsync(id);
             if (beer == null) {
                 return NotFound();
