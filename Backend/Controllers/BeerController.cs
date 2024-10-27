@@ -1,5 +1,6 @@
 ﻿using Backend.DTOs;
 using Backend.Models;
+using Backend.services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -15,42 +16,30 @@ namespace Backend.Controllers
         private StoreContext _storeContext;
         private IValidator<BeerInsertDto> _beerInsertValidator;
         private IValidator<BeerUpdateDto> _beerUpdateValidator;
-
+        private IBeerServices _beerService;
         public BeerController(
             StoreContext storeContext, 
             IValidator<BeerInsertDto> beerInsertValidators,
-            IValidator<BeerUpdateDto> beerUpdateValidator)
+            IValidator<BeerUpdateDto> beerUpdateValidator, 
+            IBeerServices beerServices
+            )
         {
             _storeContext = storeContext;
             _beerInsertValidator = beerInsertValidators;
             _beerUpdateValidator = beerUpdateValidator;
+            _beerService = beerServices;
         }
 
         [HttpGet]
         public async Task<IEnumerable<BeerDto>> Get() =>
-            await _storeContext.Beers.Select(b => new BeerDto {
-                Id = b.BrandId,
-                Al = b.Al,
-                BrandID = b.BrandId,
-                Name = b.BeerName
-            }).ToListAsync();
+            await _beerService.Get();
 
 
         [HttpGet("{id}")]
         public async Task<ActionResult<BeerDto>> GetById(int id) {
-            var beer = await _storeContext.Beers.FindAsync(id);
-            if (beer == null) {
-                return NotFound();
-            }
+            var beerDto = await _beerService.GetById(id);
 
-            var beerDto = new BeerDto {
-                Id = beer.BeerId,
-                Al = beer.Al,
-                BrandID = beer.BrandId,
-                Name = beer.BeerName
-            };
-
-            return Ok(beerDto);
+            return  beerDto == null ? NotFound():Ok(beerDto);
         }
 
 

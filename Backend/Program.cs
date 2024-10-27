@@ -9,8 +9,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-
 //builder.Services.AddSingleton<IPersonaServices, PersonaService2>();
 builder.Services.AddKeyedSingleton<IPersonaServices, PersonaService>("personaservices");
 builder.Services.AddKeyedSingleton<IPersonaServices, PersonaService2>("personaservices2");
