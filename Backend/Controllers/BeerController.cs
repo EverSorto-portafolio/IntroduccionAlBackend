@@ -63,35 +63,13 @@ namespace Backend.Controllers
         public async Task<ActionResult<BeerDto>> update(
             int id, BeerUpdateDto beerUpdateDto) 
         {
-
             var validationResult = await _beerUpdateValidator.ValidateAsync(beerUpdateDto);
-
             if (!validationResult.IsValid) {
-
                 return BadRequest(validationResult.Errors);
             }
 
-
-
-
-            var beer = await _storeContext.Beers.FindAsync(id);
-            if (beer == null) {
-                return NotFound();
-            }
-
-            beer.BeerName = beerUpdateDto.Name;
-            beer.Al = beerUpdateDto.Al;
-            beer.BrandId = beerUpdateDto.BrandID;
-
-            await _storeContext.SaveChangesAsync();
-            var beerDto = new BeerDto
-            {
-                Id = beer.BeerId,
-                Name = beer.BeerName,
-                BrandID = beer.BrandId,
-                Al = beer.Al
-            };
-            return Ok(beerDto);
+            var beerDto = await _beerService.Update(id, beerUpdateDto);
+            return beerDto == null ? NotFound() : Ok(beerDto) ;
         }
 
         [HttpDelete("{id}")]

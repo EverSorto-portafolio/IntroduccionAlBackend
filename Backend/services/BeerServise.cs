@@ -15,7 +15,7 @@ namespace Backend.services
         {
             return await _storeContext.Beers.Select(b => new BeerDto
             {
-                Id = b.BrandId,
+                Id = b.BeerId,
                 Al = b.Al,
                 BrandID = b.BrandId,
                 Name = b.BeerName
@@ -58,9 +58,26 @@ namespace Backend.services
             };
             return beerDto;
         }
-        public Task<BeerDto> Update(int id, BeerUpdateDto beerUpdate)
+        public async Task<BeerDto> Update(int id, BeerUpdateDto beerUpdateDto)
         {
-            throw new NotImplementedException();
+          var beer = await _storeContext.Beers.FindAsync(id);
+            if (beer != null) {
+                beer.BeerName = beerUpdateDto.Name;
+                beer.Al = beerUpdateDto.Al;
+                beer.BrandId = beerUpdateDto.BrandID;
+                await _storeContext.SaveChangesAsync();
+               
+                var beerDto = new BeerDto
+                {
+                    Id = beer.BeerId,
+                    Name = beer.BeerName,
+                    BrandID = beer.BrandId,
+                    Al = beer.Al
+                };
+
+                return beerDto;
+            }
+            return null;
         }
         public Task<BeerDto> Delete(int id)
         {
