@@ -51,24 +51,10 @@ namespace Backend.Controllers
             if (!validationREsult.IsValid) {
                 return BadRequest(validationREsult.Errors);
             }
+      
+            var beerDto = await _beerService.Add(beerInsertDto);
             
-            var beer = new Beer()
-            {
-                BeerName = beerInsertDto.Name,
-                BrandId = beerInsertDto.BrandID,
-                Al = beerInsertDto.Al
-            };
-            await _storeContext.Beers.AddAsync(beer);
-            await _storeContext.SaveChangesAsync();
-
-            var beerDto = new BeerDto
-            {
-                Id = beer.BeerId,
-                Name = beerInsertDto.Name,
-                BrandID = beerInsertDto.BrandID,
-                Al = beerInsertDto.Al
-            };
-            return CreatedAtAction(nameof(GetById), new { id = beer.BeerId }, beerDto);
+            return CreatedAtAction(nameof(GetById), new { id = beerDto.Id }, beerDto);
         }
 
 
@@ -125,7 +111,6 @@ namespace Backend.Controllers
                 BrandID = beer.BrandId,
                 Al = beer.Al
             };
-
             return Ok(beerDto);
         }
 
