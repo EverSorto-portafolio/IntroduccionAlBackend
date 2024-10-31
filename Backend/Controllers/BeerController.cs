@@ -75,21 +75,8 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BeerDto>> Delete(int id) 
         {
-            var beer = await _storeContext.Beers.FindAsync(id);
-            if (beer == null)
-            {
-                return NotFound();
-            }
-            _storeContext.Beers.Remove(beer);
-            await _storeContext.SaveChangesAsync();
-            var beerDto = new BeerDto
-            {
-                Id = beer.BeerId,
-                Name = beer.BeerName,
-                BrandID = beer.BrandId,
-                Al = beer.Al
-            };
-            return Ok(beerDto);
+           var beerDto = await _beerService.Delete(id);
+           return beerDto == null ? NotFound() : Ok(beerDto);
         }
 
     }
