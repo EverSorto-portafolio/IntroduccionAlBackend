@@ -18,8 +18,8 @@ builder.Services.AddKeyedScoped<IRandomServices, RandomService>("randomScope");
 builder.Services.AddKeyedTransient<IRandomServices, RandomService>("randomTrasient");
 
 builder.Services.AddScoped<IPostService, PostService>();
-//beer service
-builder.Services.AddScoped<IBeerServices, BeerServise> ();
+//beer service 
+builder.Services.AddKeyedScoped<ICommonBeerServices<BeerDto, BeerInsertDto, BeerUpdateDto>, BeerServise> ("beerservice");
 
 // Entity F.
 builder.Services.AddHttpClient<IPostService, PostService>(

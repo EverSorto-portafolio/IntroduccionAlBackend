@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.services
 {
-    public class BeerServise : IBeerServices
+    public class BeerServise : ICommonBeerServices<BeerDto, BeerInsertDto, BeerUpdateDto>
     {
         private StoreContext _storeContext;
-
         public BeerServise(StoreContext storeContext) { 
         _storeContext = storeContext;
         }
@@ -66,7 +65,6 @@ namespace Backend.services
                 beer.Al = beerUpdateDto.Al;
                 beer.BrandId = beerUpdateDto.BrandID;
                 await _storeContext.SaveChangesAsync();
-               
                 var beerDto = new BeerDto
                 {
                     Id = beer.BeerId,
@@ -74,7 +72,6 @@ namespace Backend.services
                     BrandID = beer.BrandId,
                     Al = beer.Al
                 };
-
                 return beerDto;
             }
             return null;
