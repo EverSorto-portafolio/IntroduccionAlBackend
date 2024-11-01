@@ -15,10 +15,9 @@ namespace Backend.Repository
 
         public async Task<Beer> GetById(int id) => await 
             _storeContext.Beers.FindAsync(id);
-        public Task add(Beer entity)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task add(Beer entity) =>   
+             await _storeContext.AddAsync(entity);
+        
         public  void update(Beer entity)
         {
             throw new NotImplementedException();
@@ -27,9 +26,6 @@ namespace Backend.Repository
         {
             throw new NotImplementedException();
         }
-        public async Task Save()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task Save() => _storeContext.SaveChanges();
     }
 }

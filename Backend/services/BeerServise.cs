@@ -37,7 +37,6 @@ namespace Backend.services
                 };
                 return beerDto;
             }
-
             return null;
         }
         public async Task<BeerDto> Add(BeerInsertDto beerInsertDto)
@@ -48,8 +47,8 @@ namespace Backend.services
                 BrandId = beerInsertDto.BrandID,
                 Al = beerInsertDto.Al
             };
-            await _storeContext.Beers.AddAsync(beer);
-            await _storeContext.SaveChangesAsync();
+             await _beerRepository.add(beer);
+             await _beerRepository.Save();
             var beerDto = new BeerDto
             {
                 Id = beer.BeerId,
