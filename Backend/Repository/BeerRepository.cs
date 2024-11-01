@@ -21,10 +21,8 @@ namespace Backend.Repository
             _storeContext.Attach(entity);
             _storeContext.Entry(entity).State = EntityState.Modified;
         }
-        public void Delete(Beer entity)
-        {
-          
-        }
+        public void Delete(Beer entity) => _storeContext.Beers.Remove(entity);
+       
         public async Task Save() => _storeContext.SaveChanges();
     }
 }
