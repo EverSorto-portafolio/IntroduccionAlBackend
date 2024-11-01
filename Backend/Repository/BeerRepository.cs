@@ -12,19 +12,18 @@ namespace Backend.Repository
         
         }
         public async Task<IEnumerable<Beer>> Get() => await _storeContext.Beers.ToListAsync();
-
         public async Task<Beer> GetById(int id) => await 
             _storeContext.Beers.FindAsync(id);
         public async Task add(Beer entity) =>   
              await _storeContext.AddAsync(entity);
-        
         public  void update(Beer entity)
         {
-            throw new NotImplementedException();
+            _storeContext.Attach(entity);
+            _storeContext.Entry(entity).State = EntityState.Modified;
         }
         public void Delete(Beer entity)
         {
-            throw new NotImplementedException();
+          
         }
         public async Task Save() => _storeContext.SaveChanges();
     }
