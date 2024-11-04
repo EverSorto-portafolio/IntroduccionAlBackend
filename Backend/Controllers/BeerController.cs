@@ -1,4 +1,5 @@
-﻿using Backend.DTOs;
+﻿using AutoMapper;
+using Backend.DTOs;
 using Backend.Models;
 using Backend.services;
 using FluentValidation;
@@ -47,6 +48,7 @@ namespace Backend.Controllers
             var  validationREsult = await _beerInsertValidator.ValidateAsync(beerInsertDto);
 
             if (!validationREsult.IsValid) {
+                Console.WriteLine(validationREsult.IsValid);
                 return BadRequest(validationREsult.Errors);
             }
       
