@@ -40,24 +40,22 @@ namespace Backend.Controllers
 
             return  beerDto == null ? NotFound():Ok(beerDto);
         }
-
-
         [HttpPost]
         public async Task<ActionResult<BeerDto>> Add(BeerInsertDto beerInsertDto) {
 
             var  validationREsult = await _beerInsertValidator.ValidateAsync(beerInsertDto);
-
             if (!validationREsult.IsValid) {
                 Console.WriteLine(validationREsult.IsValid);
                 return BadRequest(validationREsult.Errors);
             }
-      
-            var beerDto = await _beerService.Add(beerInsertDto);
             
+            if (!_beerService.validate(beerInsertDto)) {
+                return BadRequest(_beerService.Erros);
+            }
+
+            var beerDto = await _beerService.Add(beerInsertDto);
             return CreatedAtAction(nameof(GetById), new { id = beerDto.Id }, beerDto);
         }
-
-
 
         [HttpPut("{id}")]
         public async Task<ActionResult<BeerDto>> update(
@@ -66,6 +64,10 @@ namespace Backend.Controllers
             var validationResult = await _beerUpdateValidator.ValidateAsync(beerUpdateDto);
             if (!validationResult.IsValid) {
                 return BadRequest(validationResult.Errors);
+            }
+            if (!_beerService.validate(beerUpdateDto))
+            {
+                return BadRequest(_beerService.Erros);
             }
 
             var beerDto = await _beerService.Update(id, beerUpdateDto);

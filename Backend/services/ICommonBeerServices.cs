@@ -9,5 +9,8 @@ namespace Backend.services
         Task<T> Add(IT beerInsertDto);
         Task<T> Update(int id, UT beerUpdate);
         Task<T> Delete(int id);
+        bool validate(IT dto );
+        bool validate(UT dto);
+        public List<String> Erros { get; }
     }
 }

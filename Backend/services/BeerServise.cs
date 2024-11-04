@@ -8,11 +8,13 @@ namespace Backend.services
 {
     public class BeerServise : ICommonBeerServices<BeerDto, BeerInsertDto, BeerUpdateDto>
     {
+        public List<string> Erros { get;}
         private IRepository<Beer> _beerRepository;
         private IMapper _mapper;
         public BeerServise( IRepository<Beer> beerRepository, IMapper mapper) { 
         _beerRepository = beerRepository;
         _mapper = mapper;
+            Erros = new List<string>();
         }
         public async Task<IEnumerable<BeerDto>> Get()
         {
@@ -77,5 +79,25 @@ namespace Backend.services
             }
             return null;
         }
+        public bool validate(BeerInsertDto beerInsertDto) {
+            if (_beerRepository.search(bdto => bdto.BeerName == beerInsertDto.Name).Count()> 0 ) {
+                Erros.Add("ya existe el nombre en la basde de datos");
+                return false;
+            }
+            return true;
+        }
+        public bool validate(BeerUpdateDto beerUpdateDto )
+        {
+            if (_beerRepository.search(bdto => bdto.BeerName ==beerUpdateDto.Name
+             && beerUpdateDto.Id != bdto.BeerId).Count() > 0)
+            {
+                Erros.Add("ya existe el nombre en la basde de datos update");
+                return false;
+            }
+            return true;
+        }
+
+
+
     }
 }

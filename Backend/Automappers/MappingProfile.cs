@@ -21,12 +21,3 @@ namespace Backend.Automappers
         }
     }
 }
-//BeerId
-// BeerName
-//BrandId
-//Al
-
-//Deto
-//Name
-//BrandId
-//Al

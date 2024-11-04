@@ -6,7 +6,6 @@ namespace Backend.Repository
     public class BeerRepository : IRepository<Beer>
     {
         private StoreContext _storeContext;
-
         public BeerRepository(StoreContext storeContext) { 
         _storeContext = storeContext;
         
@@ -22,7 +21,8 @@ namespace Backend.Repository
             _storeContext.Entry(entity).State = EntityState.Modified;
         }
         public void Delete(Beer entity) => _storeContext.Beers.Remove(entity);
-       
-        public async Task Save() => _storeContext.SaveChanges();
+       public async Task Save() => _storeContext.SaveChanges();
+        public IEnumerable<Beer> search(Func<Beer, bool> filter) =>
+             _storeContext.Beers.Where(filter).ToList();
     }
 }
